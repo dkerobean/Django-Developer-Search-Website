@@ -144,11 +144,11 @@ def addSkill(request):
 @login_required(login_url='login')
 def updateSkill(request, pk):
     profile = request.user.profile
-    skill =profile.skill_set.get(id=pk)
+    skill = profile.skill_set.get(id=pk)
     form = AddSkill(instance=skill)
 
     if request.method == 'POST':
-        form = AddSkill(request.POST,instance = skill)
+        form = AddSkill(request.POST, instance = skill)
         form.save()
         messages.success(request,'Skill Updated!')
         return redirect('account')
