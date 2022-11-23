@@ -19,7 +19,9 @@ def profiles(request):
         'profiles': profiles,
         'search_query':search_query
     }
+
     return render(request, 'users/profiles.html', context)
+
 
 @login_required(login_url='login')
 def userProfile(request, pk):
@@ -47,7 +49,6 @@ def loginUser(request):
             user = User.objects.get(username= username)
         except:
             messages.error(request, 'Username does not exist')
-
         user = authenticate(request, username=username, password=password)
 
         if user is not None:
@@ -67,6 +68,7 @@ def logoutUser(request):
     logout(request)
     messages.info(request, 'Logout Success')
     return redirect('login')
+
 
 def registerUser(request):
     page = 'register'
@@ -89,9 +91,8 @@ def registerUser(request):
         'form':form
     }
 
-
-
     return render(request, 'users/login_register.html',context)
+
 
 @login_required(login_url='login')
 def usersAccount(request):
@@ -105,6 +106,7 @@ def usersAccount(request):
     }
     return render(request, 'users/account.html', context)
 
+
 @login_required(login_url='login')
 def editAccount(request):
     profile = request.user.profile
@@ -114,13 +116,15 @@ def editAccount(request):
         form = ProfileEditForm(request.POST, request.FILES, instance=profile)
         if form.is_valid():
             form.save()
-
+            messages.success(request, 'Updated Successfully')
             return redirect('account')
 
     context = {
         'form':form
     }
+
     return render(request, 'users/profile_form.html',context)
+
 
 @login_required(login_url='login')
 def addSkill(request):
@@ -158,6 +162,7 @@ def updateSkill(request, pk):
     }
     return render(request, 'users/skill_form.html', context)
 
+
 @login_required(login_url='login')
 def deleteSkill(request, pk):
     profile = request.user.profile
@@ -173,6 +178,7 @@ def deleteSkill(request, pk):
 
     return render(request, 'delete_file.html', context )
 
+
 @login_required(login_url='login')
 def inbox(request):
     profile = request.user.profile
@@ -185,6 +191,7 @@ def inbox(request):
     }
     return render(request, 'users/inbox.html', context)
 
+
 @login_required(login_url='login')
 def viewMessage(request, pk):
     profile = request.user.profile
@@ -195,17 +202,14 @@ def viewMessage(request, pk):
         userMessages.save()
 
     context = {
-    'message':userMessages
+    'message':message
     }
     return render(request, 'users/message.html',context)
-
 
 
 def createMessage(request, pk):
     recipient = Profile.objects.get(id=pk)
     form = SendMessage()
-
-
 
     try:
          sender = request.user.profile
@@ -213,7 +217,6 @@ def createMessage(request, pk):
          sender = None
 
     if request.method == 'POST':
-
         form = SendMessage(request.POST)
         if form.is_valid():
             message = form.save(commit=False)
@@ -223,6 +226,7 @@ def createMessage(request, pk):
             if sender:
                 message.name = sender.name
                 message.email = message.email
+
             message.save()
 
             messages.success(request, 'Mesage sent!')
@@ -230,7 +234,8 @@ def createMessage(request, pk):
 
     context = {
         'recipient': recipient,
-        'form':form
+        'form':form,
+        'recipient':recipient
     }
 
     return render(request, 'users/message_form.html', context)

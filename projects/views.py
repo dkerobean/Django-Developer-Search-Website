@@ -55,7 +55,8 @@ def createForm(request):
             project = form.save(commit=False)
             project.owner = profile
             project.save()
-            return redirect('accounts')
+            messages.success(request, 'Project Created Successfully')
+            return redirect('account')
 
     context = {
     'form':form
@@ -73,7 +74,7 @@ def updateForm(request, pk):
         form = ProjectForm(request.POST, request.FILES,  instance=project)
         if form.is_valid():
             form.save()
-            return redirect('accounts')
+            return redirect('account')
 
     context = {
     'form':form

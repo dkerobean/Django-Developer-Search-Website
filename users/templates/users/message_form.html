@@ -11,7 +11,7 @@
 
             <form class="form" method="POST">
               {% csrf_token %}
-
+              <h3>Send message to {{recipient}}</h3>
               {% if request.user.is_authenticated == False %}
               <div class="form__field">
                   <label for="formInput#text">{{form.name.label}}: </label>
@@ -24,15 +24,15 @@
               {% endif %}
 
               <div class="form__field">
-                  <label for="formInput#text">{{form.body.label}}: </label>
+                  <label for="formInput#text">{{form.subject.label}}: </label>
                   {{form.subject}}
               </div>
               <div class="form__field">
-                  <label for="formInput#text">{{form.email.label}}: </label>
+                  <label for="formInput#text">{{form.body.label}}: </label>
                   {{form.body}}
               </div>
 
-                
+
 
                 <input class="btn btn--sub btn--lg  my-md" type="submit" value="Submit" />
             </form>

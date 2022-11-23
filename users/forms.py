@@ -25,7 +25,7 @@ class ProfileEditForm(ModelForm):
         model = Profile
         fields = ['name','email','username', 'location',
                     'bio', 'short_intro', 'profile_image',
-                    'social_github', 'social_twitter','social_youtube', 'social_website' ]
+                    'social_github','social_linkedin', 'social_twitter','social_youtube', 'social_website' ]
 
 
     def __init__(self, *args, **kwargs):
