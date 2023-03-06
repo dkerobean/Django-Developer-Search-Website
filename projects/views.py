@@ -42,8 +42,8 @@ def project(request, pk):
     'form':form
     }
 
-
     return render(request, 'projects/single-projects.html',context)
+
 
 @login_required(login_url="login")
 def createForm(request):
@@ -86,10 +86,14 @@ def updateForm(request, pk):
 def deleteForm(request,pk):
     profile = request.user.profile
     project = profile.project_set.get(id=pk)
+    
     if request.method == 'POST':
         project.delete()
         return redirect('projects')
+    
     context = {
         'object':project,
     }
     return render(request, 'projects/delete_file.html',context)
+
+

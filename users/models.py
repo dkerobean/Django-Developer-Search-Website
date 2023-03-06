@@ -33,7 +33,7 @@ class Skill(models.Model):
     owner = models.ForeignKey(Profile, null=True, blank=True, on_delete = models.CASCADE)
     name = models.CharField(max_length=200, blank=True, null=True)
     description = models.TextField(blank=True, null=True)
-    reated = models.DateTimeField(auto_now_add=True)
+    created = models.DateTimeField(auto_now_add=True)
     id = models.UUIDField(default=uuid.uuid4, unique=True, primary_key=True, editable=False)
 
     def __str__(self):
